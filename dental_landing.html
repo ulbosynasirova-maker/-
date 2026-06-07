@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmilePro — Стоматология</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0f1c14;
+    --green: #1B6B45;
+    --green-light: #2E9B66;
+    --mint: #D6F0E4;
+    --cream: #F7F3EE;
+    --gold: #C9963A;
+    --soft: #6B7C72;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 5vw;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(27,107,69,.1);
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(15,28,20,.07); }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--green); letter-spacing: -.5px; }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: .88rem; font-weight: 500; color: var(--soft); letter-spacing: .3px; transition: color .2s; }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta { background: var(--green); color: #fff; border: none; padding: .65rem 1.5rem; border-radius: 50px; font-size: .88rem; font-weight: 600; cursor: pointer; transition: background .2s, transform .15s; letter-spacing: .3px; }
+  .nav-cta:hover { background: var(--green-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding: 8rem 5vw 5rem;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(27,107,69,.08) 0%, transparent 70%);
+    top: -150px; right: -200px;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--mint); color: var(--green);
+    padding: .4rem 1rem; border-radius: 50px;
+    font-size: .8rem; font-weight: 600; letter-spacing: .5px;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge::before { content: '●'; font-size: .5rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.6rem, 4.5vw, 4rem);
+    line-height: 1.15;
+    letter-spacing: -.5px;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+  .hero h1 em { font-style: italic; color: var(--green); }
+  .hero-sub { font-size: 1.05rem; color: var(--soft); line-height: 1.75; margin-bottom: 2.5rem; max-width: 460px; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-main { background: var(--green); color: #fff; padding: .85rem 2rem; border-radius: 50px; font-size: .95rem; font-weight: 600; border: none; cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block; }
+  .btn-main:hover { background: var(--green-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,107,69,.3); }
+  .btn-outline { background: transparent; color: var(--green); border: 2px solid var(--green); padding: .8rem 1.8rem; border-radius: 50px; font-size: .95rem; font-weight: 600; cursor: pointer; transition: all .2s; text-decoration: none; display: inline-block; }
+  .btn-outline:hover { background: var(--mint); }
+  .hero-stats { display: flex; gap: 2.5rem; margin-top: 3rem; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.2rem; color: var(--green); display: block; }
+  .stat-lbl { font-size: .78rem; color: var(--soft); font-weight: 500; letter-spacing: .5px; }
+
+  /* hero right side */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-card {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(15,28,20,.10);
+    width: 100%;
+    max-width: 400px;
+    animation: floatCard 5s ease-in-out infinite;
+  }
+  @keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .card-icon { font-size: 3rem; margin-bottom: 1rem; }
+  .hero-card h3 { font-family:'DM Serif Display',serif; font-size: 1.4rem; margin-bottom: .5rem; }
+  .hero-card p { color: var(--soft); font-size: .9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+  .mini-badge { display:inline-block; background:var(--mint); color:var(--green); padding:.3rem .8rem; border-radius:20px; font-size:.75rem; font-weight:600; }
+  .floating-chip {
+    position: absolute;
+    background: var(--white);
+    border-radius: 50px;
+    padding: .6rem 1.2rem;
+    box-shadow: 0 8px 24px rgba(15,28,20,.12);
+    font-size: .8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .chip1 { top: -10px; left: -30px; color: var(--green); }
+  .chip2 { bottom: 20px; right: -30px; color: var(--gold); }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 5vw; }
+  .sec-label { font-size: .75rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: .8rem; display: block; }
+  .sec-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.2; letter-spacing: -.3px; margin-bottom: 1rem; }
+  .sec-sub { color: var(--soft); font-size: 1rem; line-height: 1.75; max-width: 540px; }
+
+  /* ── SERVICES ── */
+  #services { background: var(--white); }
+  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .svc-card {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 2.2rem;
+    border: 1px solid transparent;
+    transition: all .3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .svc-card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:var(--green); transform:scaleX(0); transition:transform .3s; }
+  .svc-card:hover { border-color: rgba(27,107,69,.15); box-shadow: 0 12px 40px rgba(15,28,20,.08); transform: translateY(-4px); }
+  .svc-card:hover::after { transform:scaleX(1); }
+  .svc-ico { font-size: 2.2rem; margin-bottom: 1.2rem; display: block; }
+  .svc-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .6rem; }
+  .svc-card p { font-size: .88rem; color: var(--soft); line-height: 1.7; }
+
+  /* ── PRICING ── */
+  #pricing { background: var(--ink); }
+  #pricing .sec-label { color: #9fcfb5; }
+  #pricing .sec-title { color: var(--white); }
+  #pricing .sec-sub { color: rgba(255,255,255,.5); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+  .price-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all .3s;
+    position: relative;
+  }
+  .price-card:hover { background: rgba(255,255,255,.09); transform: translateY(-4px); }
+  .price-card.popular {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .pop-tag { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--gold); color:#fff; padding:.3rem .9rem; border-radius:20px; font-size:.72rem; font-weight:700; letter-spacing:.5px; white-space:nowrap; }
+  .price-name { font-size:.8rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,.5); margin-bottom:1.2rem; }
+  .price-card.popular .price-name { color:rgba(255,255,255,.8); }
+  .price-amount { font-family:'DM Serif Display',serif; font-size:2.8rem; color:var(--white); margin-bottom:.2rem; }
+  .price-unit { font-size:.82rem; color:rgba(255,255,255,.45); margin-bottom:1.8rem; }
+  .price-card.popular .price-unit { color:rgba(255,255,255,.7); }
+  .price-features { list-style:none; margin-bottom:2rem; }
+  .price-features li { font-size:.88rem; color:rgba(255,255,255,.65); padding:.45rem 0; display:flex; align-items:center; gap:.7rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+  .price-card.popular .price-features li { color:rgba(255,255,255,.9); border-bottom-color:rgba(255,255,255,.12); }
+  .price-features li::before { content:'✓'; color:var(--green-light); font-weight:700; flex-shrink:0; }
+  .price-card.popular .price-features li::before { color:#a8f0ca; }
+  .btn-price { width:100%; padding:.8rem; border-radius:50px; font-size:.9rem; font-weight:600; cursor:pointer; transition:all .2s; border:2px solid rgba(255,255,255,.2); background:transparent; color:var(--white); }
+  .btn-price:hover { border-color:rgba(255,255,255,.5); background:rgba(255,255,255,.08); }
+  .price-card.popular .btn-price { background:var(--white); color:var(--green); border-color:var(--white); }
+  .price-card.popular .btn-price:hover { background:#f0fff7; }
+
+  /* ── CONTACT & MAP ── */
+  #contact { background: var(--cream); }
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-block {}
+  .contact-block h4 { font-size:.72rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--green); margin-bottom:.6rem; }
+  .contact-block p, .contact-block a { font-size:.95rem; color:var(--ink); line-height:1.7; text-decoration:none; display:block; }
+  .contact-block a:hover { color:var(--green); }
+  .contact-phones { display:flex; flex-direction:column; gap:.3rem; }
+  .map-wrap {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(15,28,20,.1);
+    position: relative;
+  }
+  .map-wrap iframe { width:100%; height:420px; display:block; border:none; }
+  .map-overlay {
+    position:absolute; bottom:16px; left:16px;
+    background:var(--white); border-radius:12px;
+    padding:.9rem 1.2rem; box-shadow:0 4px 20px rgba(0,0,0,.15);
+    font-size:.82rem; font-weight:600; display:flex; align-items:center; gap:.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,.4);
+    text-align: center;
+    padding: 2.5rem 5vw;
+    font-size: .85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-logo { font-family:'DM Serif Display',serif; font-size:1.3rem; color:var(--white); }
+  .footer-logo span { color:var(--gold); }
+
+  /* ── SCROLL ANIM ── */
+  .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:900px) {
+    .hero { grid-template-columns:1fr; padding-top:6rem; }
+    .hero-visual { display:none; }
+    .services-grid, .pricing-grid { grid-template-columns:1fr 1fr; }
+    .contact-wrap { grid-template-columns:1fr; }
+  }
+  @media(max-width:600px) {
+    .services-grid, .pricing-grid { grid-template-columns:1fr; }
+    .nav-links { display:none; }
+    .hero-stats { gap:1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="logo">Smile<span>Pro</span></div>
+  <ul class="nav-links">
+    <li><a href="#services">Қызметтер</a></li>
+    <li><a href="#pricing">Бағалар</a></li>
+    <li><a href="#contact">Байланыс</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Жазылу</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Алматыдағы №1 Стоматология</div>
+    <h1>Жарқын <em>күліміңіз</em> —<br>біздің мақсатымыз</h1>
+    <p class="hero-sub">Заманауи технологиялар мен тәжірибелі дәрігерлер арқылы сіздің тісіңізді дұрыс күтеміз. Ауырсынусыз, жайлы, сенімді.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-main">Орын брондау</a>
+      <a href="#services" class="btn-outline">Қызметтер →</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="stat-num">12+</span><span class="stat-lbl">Жыл тәжірибе</span></div>
+      <div><span class="stat-num">8 000+</span><span class="stat-lbl">Пациент</span></div>
+      <div><span class="stat-num">98%</span><span class="stat-lbl">Риза пациент</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <span class="card-icon">🦷</span>
+      <h3>Тегін консультация</h3>
+      <p>Алғаш рет келгендерге толық тексеру және рентген тегін беріледі.</p>
+      <span class="mini-badge">Бүгін бос орын бар</span>
+    </div>
+    <div class="floating-chip chip1">⭐ 4.9 рейтинг</div>
+    <div class="floating-chip chip2">✨ Жаңа технология</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <div>
+      <span class="sec-label">Қызметтеріміз</span>
+      <h2 class="sec-title">Барлық стоматологиялық<br>қызметтер бір жерде</h2>
+    </div>
+    <p class="sec-sub">Заманауи жабдықтармен, ауырсынусыз емдеу</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card reveal"><span class="svc-ico">🔍</span><h3>Диагностика</h3><p>Цифрлық рентген, 3D томография. Толық тексеру — 30 минутта.</p></div>
+    <div class="svc-card reveal"><span class="svc-ico">✨</span><h3>Ағарту</h3><p>Zoom технологиясымен 8 тонға дейін ағартамыз. Нәтиже — бірден!</p></div>
+    <div class="svc-card reveal"><span class="svc-ico">⚕️</span><h3>Емдеу</h3><p>Заманауи пломба материалдары. Ауырсынусыз анестезия.</p></div>
+    <div class="svc-card reveal"><span class="svc-ico">👑</span><h3>Ортопедия</h3><p>Тәж, виниры, протездер. Керамика мен циркониядан жасалған.</p></div>
+    <div class="svc-card reveal"><span class="svc-ico">🔩</span><h3>Имплантация</h3><p>Nobel, Straumann импланттары. 10 жыл кепілдік.</p></div>
+    <div class="svc-card reveal"><span class="svc-ico">👶</span><h3>Балалар бөлімі</h3><p>Ойын ортасы, жайлы кресло. Балаларды емдеу — мамандығымыз.</p></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div style="text-align:center" class="reveal">
+    <span class="sec-label">Бағалар</span>
+    <h2 class="sec-title">Мөлдір баға, жасырын төлем жоқ</h2>
+    <p class="sec-sub" style="margin:0 auto">Барлық пакеттер кеңес пен тексерумен бірге келеді</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card reveal">
+      <p class="price-name">Базалық</p>
+      <div class="price-amount">5 000 ₸</div>
+      <p class="price-unit">бір кіруден</p>
+      <ul class="price-features">
+        <li>Тексеру + Рентген</li>
+        <li>Кеңес беру</li>
+        <li>Емдеу жоспары</li>
+        <li>Тіс тазалау</li>
+      </ul>
+      <button class="btn-price">Жазылу</button>
+    </div>
+    <div class="price-card popular reveal">
+      <span class="pop-tag">⭐ ЕҢ ТАНЫМАЛ</span>
+      <p class="price-name">Стандарт</p>
+      <div class="price-amount">25 000 ₸</div>
+      <p class="price-unit">айына / толық қызмет</p>
+      <ul class="price-features">
+        <li>Барлық базалық</li>
+        <li>Ағарту (2 тон)</li>
+        <li>1 пломба кіреді</li>
+        <li>Фторлау</li>
+        <li>Кезектен тыс прием</li>
+      </ul>
+      <button class="btn-price">Жазылу</button>
+    </div>
+    <div class="price-card reveal">
+      <p class="price-name">Премиум</p>
+      <div class="price-amount">60 000 ₸</div>
+      <p class="price-unit">айына / VIP қызмет</p>
+      <ul class="price-features">
+        <li>Барлық стандарт</li>
+        <li>Zoom ағарту</li>
+        <li>3 пломба кіреді</li>
+        <li>Виниры кеңесі</li>
+        <li>VIP кабинет</li>
+        <li>24/7 WhatsApp</li>
+      </ul>
+      <button class="btn-price">Жазылу</button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & MAP -->
+<section id="contact">
+  <div class="reveal" style="margin-bottom:3rem">
+    <span class="sec-label">Байланыс</span>
+    <h2 class="sec-title">Бізді табыңыз</h2>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <div class="contact-block">
+        <h4>📍 Мекен-жай</h4>
+        <p>Алматы қ., Достык даңғылы, 91<br>2-қабат, 201-кабинет</p>
+      </div>
+      <div class="contact-block">
+        <h4>📞 Телефон</h4>
+        <div class="contact-phones">
+          <a href="tel:+77051234567">+7 (705) 123-45-67</a>
+          <a href="tel:+77273456789">+7 (727) 345-67-89</a>
+        </div>
+      </div>
+      <div class="contact-block">
+        <h4>💬 WhatsApp / Telegram</h4>
+        <a href="#">+7 (705) 123-45-67</a>
+      </div>
+      <div class="contact-block">
+        <h4>🕐 Жұмыс уақыты</h4>
+        <p>Дүйсенбі – Жұма: 09:00 – 19:00<br>Сенбі: 10:00 – 17:00<br>Жексенбі: Демалыс</p>
+      </div>
+      <div class="contact-block">
+        <h4>✉️ Email</h4>
+        <a href="mailto:info@smilepro.kz">info@smilepro.kz</a>
+      </div>
+      <a href="tel:+77051234567" class="btn-main" style="text-align:center; margin-top:.5rem">📞 Қазір қоңырау шалу</a>
+    </div>
+    <div class="map-wrap reveal">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2906.0461741854636!2d76.9442!3d43.2566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38836e8a3e2c9d47%3A0x6c7c3b2e8f9a1234!2z0JTQvtGB0YLRi9C6INC--9GD0LvRi9C5LCDQkNC70LzQsNGC0LAsINCa0LDQt9Cw0YXRgdGC0LDQvQ!5e0!3m2!1sku!2skz!4v1700000000000"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="SmilePro орналасқан жері">
+      </iframe>
+      <div class="map-overlay">📍 SmilePro — Достык даңғылы 91</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Smile<span>Pro</span></div>
+  <p>© 2024 SmilePro Стоматология. Барлық құқықтар қорғалған.</p>
+  <p>Алматы қ., Достык 91</p>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
